@@ -41,7 +41,10 @@ public class Book {
     @JoinColumn(name = "book_publisher_id", referencedColumnName = "publisher_id")
     private Publisher publisher;
 
+    /*
     @OneToMany(mappedBy = "book", fetch = FetchType.LAZY)
     private List<BookBorrowing> borrowBookList;
+
+     */
 
 }

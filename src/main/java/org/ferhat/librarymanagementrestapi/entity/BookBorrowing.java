@@ -24,14 +24,17 @@ public class BookBorrowing {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "book_borrow_date")
-    private LocalDate borrowing_date;
+    private LocalDate borrowingDate;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "book_return_date")
-    private LocalDate return_date;
+    private LocalDate returnDate;
 
+    /*
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "book_borrow_id", referencedColumnName = "book_id")
     private Book book;
+
+     */
 
 }

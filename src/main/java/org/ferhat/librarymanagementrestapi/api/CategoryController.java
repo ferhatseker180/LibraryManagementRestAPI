@@ -6,14 +6,10 @@ import org.ferhat.librarymanagementrestapi.core.config.modelMapper.IModelMapperS
 import org.ferhat.librarymanagementrestapi.core.result.Result;
 import org.ferhat.librarymanagementrestapi.core.result.ResultData;
 import org.ferhat.librarymanagementrestapi.core.utils.ResultHelper;
-import org.ferhat.librarymanagementrestapi.dto.request.author.AuthorSaveRequest;
-import org.ferhat.librarymanagementrestapi.dto.request.author.AuthorUpdateRequest;
 import org.ferhat.librarymanagementrestapi.dto.request.category.CategorySaveRequest;
 import org.ferhat.librarymanagementrestapi.dto.request.category.CategoryUpdateRequest;
 import org.ferhat.librarymanagementrestapi.dto.response.CursorResponse;
-import org.ferhat.librarymanagementrestapi.dto.response.author.AuthorResponse;
 import org.ferhat.librarymanagementrestapi.dto.response.category.CategoryResponse;
-import org.ferhat.librarymanagementrestapi.entity.Author;
 import org.ferhat.librarymanagementrestapi.entity.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
