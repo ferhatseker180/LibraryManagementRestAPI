@@ -2,7 +2,6 @@ package org.ferhat.librarymanagementrestapi.business.impl;
 
 import org.ferhat.librarymanagementrestapi.business.abstracts.IBookBorrowingService;
 import org.ferhat.librarymanagementrestapi.dao.BookBorrowingRepo;
-import org.ferhat.librarymanagementrestapi.dao.BookRepo;
 import org.ferhat.librarymanagementrestapi.entity.BookBorrowing;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

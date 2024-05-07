@@ -1,6 +1,5 @@
 package org.ferhat.librarymanagementrestapi.business.abstracts;
 
-import org.ferhat.librarymanagementrestapi.entity.Category;
 import org.ferhat.librarymanagementrestapi.entity.Publisher;
 import org.springframework.data.domain.Page;
 
