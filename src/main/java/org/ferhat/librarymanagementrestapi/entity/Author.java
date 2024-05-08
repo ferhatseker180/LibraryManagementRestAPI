@@ -1,16 +1,15 @@
 package org.ferhat.librarymanagementrestapi.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "author")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
@@ -26,7 +25,7 @@ public class Author {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "author_birth_date")
-    private LocalDate birth_date;
+    private LocalDate birthDate;
 
     @Column(name = "author_country")
     private String country;

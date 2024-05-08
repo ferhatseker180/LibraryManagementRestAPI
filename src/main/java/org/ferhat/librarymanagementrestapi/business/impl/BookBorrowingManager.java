@@ -20,7 +20,6 @@ public class BookBorrowingManager implements IBookBorrowingService {
 
     @Override
     public BookBorrowing save(BookBorrowing bookBorrowing) {
-        bookBorrowing.setBorrowingDate(LocalDate.now());
         return this.bookBorrowingRepo.save(bookBorrowing);
     }
 

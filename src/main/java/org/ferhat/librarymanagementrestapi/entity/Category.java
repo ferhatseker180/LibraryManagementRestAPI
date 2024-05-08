@@ -1,15 +1,14 @@
 package org.ferhat.librarymanagementrestapi.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "category")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Category {
@@ -17,7 +16,7 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
-    private int id;
+    private Long id;
 
     @Column(name = "category_name", nullable = false)
     private String name;
@@ -25,8 +24,6 @@ public class Category {
     @Column(name = "category_description")
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "category_of_book", joinColumns = {@JoinColumn(name = "category_of_book_id")},
-            inverseJoinColumns = {@JoinColumn(name = "book_of_category_id")})
+    @ManyToMany(mappedBy = "categoryList", fetch = FetchType.LAZY)
     private List<Book> bookList;
 }

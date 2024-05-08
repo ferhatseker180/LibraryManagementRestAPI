@@ -1,20 +1,23 @@
 package org.ferhat.librarymanagementrestapi.dto.request.book_borrowing;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookBorrowingSaveRequest {
 
-    @NotNull(message = "Book Borrowing Name can't be null!")
-    private String name;
-    private LocalDate return_date;
-
+    @NotNull(message = "Borrower Name musn't be null!")
+    private String borrowerName;
+    @Email
+    private String borrowerEmail;
+    private LocalDate borrowingDate;
+    private LocalDate returnDate;
+    private Long bookId;
 
 }

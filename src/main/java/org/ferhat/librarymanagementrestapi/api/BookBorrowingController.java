@@ -2,6 +2,7 @@ package org.ferhat.librarymanagementrestapi.api;
 
 import jakarta.validation.Valid;
 import org.ferhat.librarymanagementrestapi.business.abstracts.IBookBorrowingService;
+import org.ferhat.librarymanagementrestapi.business.abstracts.IBookService;
 import org.ferhat.librarymanagementrestapi.core.config.modelMapper.IModelMapperService;
 import org.ferhat.librarymanagementrestapi.core.result.Result;
 import org.ferhat.librarymanagementrestapi.core.result.ResultData;
@@ -10,6 +11,7 @@ import org.ferhat.librarymanagementrestapi.dto.request.book_borrowing.BookBorrow
 import org.ferhat.librarymanagementrestapi.dto.request.book_borrowing.BookBorrowingUpdateRequest;
 import org.ferhat.librarymanagementrestapi.dto.response.CursorResponse;
 import org.ferhat.librarymanagementrestapi.dto.response.book_borrowing.BookBorrowingResponse;
+import org.ferhat.librarymanagementrestapi.entity.Book;
 import org.ferhat.librarymanagementrestapi.entity.BookBorrowing;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -19,11 +21,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1/borrows")
 public class BookBorrowingController {
     private final IBookBorrowingService bookBorrowingService;
+    private final IBookService bookService;
     private final IModelMapperService modelMapperService;
 
-    public BookBorrowingController(IBookBorrowingService bookBorrowingService, IModelMapperService modelMapperService) {
+    public BookBorrowingController(IBookBorrowingService bookBorrowingService, IModelMapperService modelMapperService, IBookService bookService) {
         this.bookBorrowingService = bookBorrowingService;
         this.modelMapperService = modelMapperService;
+        this.bookService = bookService;
     }
 
     @PostMapping()
@@ -51,7 +55,6 @@ public class BookBorrowingController {
         Page<BookBorrowing> bookBorrowingPage = this.bookBorrowingService.cursor(page, pageSize);
         Page<BookBorrowingResponse> bookBorrowingResponsePage = bookBorrowingPage
                 .map(bookBorrowing -> this.modelMapperService.forResponse().map(bookBorrowing, BookBorrowingResponse.class));
-
         return ResultHelper.cursor(bookBorrowingResponsePage);
     }
 

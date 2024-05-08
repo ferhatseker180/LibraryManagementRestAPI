@@ -1,16 +1,15 @@
 package org.ferhat.librarymanagementrestapi.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "publisher")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Publisher {
@@ -18,7 +17,7 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "publisher_id")
-    private int id;
+    private Long id;
 
     @Column(name = "publisher_name", nullable = false)
     private String name;
@@ -30,6 +29,6 @@ public class Publisher {
     @Column(name = "publisher_address")
     private String address;
 
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "publisher")
     private List<Book> bookList;
 }

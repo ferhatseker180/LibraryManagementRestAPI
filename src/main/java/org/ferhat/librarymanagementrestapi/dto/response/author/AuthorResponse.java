@@ -1,18 +1,17 @@
 package org.ferhat.librarymanagementrestapi.dto.response.author;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AuthorResponse {
 
-    private int id;
+    private Long id;
     private String name;
-    private LocalDate birth_date;
+    private LocalDate birthDate;
     private String country;
 }
