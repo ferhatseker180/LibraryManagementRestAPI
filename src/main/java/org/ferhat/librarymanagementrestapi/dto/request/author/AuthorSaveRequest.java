@@ -13,6 +13,6 @@ public class AuthorSaveRequest {
 
     @NotNull(message = "Author Name can't be null")
     private String name;
-    private LocalDate birth_date;
+    private LocalDate birthDate;
     private String country;
 }
