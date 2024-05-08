@@ -30,17 +30,18 @@ public class PublisherController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<PublisherResponse> save(@Valid @RequestBody PublisherSaveRequest publisherSaveRequest) {
+
         Publisher savePublisher = this.modelMapperService.forRequest().map(publisherSaveRequest, Publisher.class);
         this.publisherService.save(savePublisher);
         return ResultHelper.created(this.modelMapperService.forResponse().map(savePublisher, PublisherResponse.class));
     }
 
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<PublisherResponse> get(@PathVariable("id") int id) {
+    public ResultData<PublisherResponse> get(@PathVariable("id") Long id) {
         Publisher publisher = this.publisherService.get(id);
-        PublisherResponse publisherResponse = this.modelMapperService.forResponse().map(publisher, PublisherResponse.class);
-        return ResultHelper.success(publisherResponse);
+        return ResultHelper.success(this.modelMapperService.forResponse().map(publisher, PublisherResponse.class));
     }
 
     @GetMapping()
@@ -61,12 +62,12 @@ public class PublisherController {
     public ResultData<PublisherResponse> update(@Valid @RequestBody PublisherUpdateRequest publisherUpdateRequest) {
         Publisher updatePublisher = this.modelMapperService.forRequest().map(publisherUpdateRequest, Publisher.class);
         this.publisherService.update(updatePublisher);
-        return ResultHelper.success(this.modelMapperService.forResponse().map(updatePublisher, PublisherResponse.class));
+        return ResultHelper.created(this.modelMapperService.forResponse().map(updatePublisher, PublisherResponse.class));
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.publisherService.delete(id);
         return ResultHelper.ok();
     }

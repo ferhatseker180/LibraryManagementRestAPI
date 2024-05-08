@@ -9,9 +9,9 @@ public interface IBookService {
 
     Book update(Book book);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 
-    Book get(int id);
+    Book get(Long id);
 
     Page<Book> cursor(int page, int pageSize);
 }

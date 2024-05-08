@@ -9,9 +9,9 @@ public interface IPublisherService {
 
     Publisher update(Publisher publisher);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 
-    Publisher get(int id);
+    Publisher get(Long id);
 
     Page<Publisher> cursor(int page, int pageSize);
 }

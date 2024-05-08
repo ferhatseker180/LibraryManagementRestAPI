@@ -1,6 +1,8 @@
 package org.ferhat.librarymanagementrestapi.business.impl;
 
 import org.ferhat.librarymanagementrestapi.business.abstracts.IPublisherService;
+import org.ferhat.librarymanagementrestapi.core.exception.NotFoundException;
+import org.ferhat.librarymanagementrestapi.core.utils.Message;
 import org.ferhat.librarymanagementrestapi.dao.PublisherRepo;
 import org.ferhat.librarymanagementrestapi.entity.Publisher;
 import org.springframework.data.domain.Page;
@@ -23,19 +25,20 @@ public class PublisherManager implements IPublisherService {
 
     @Override
     public Publisher update(Publisher publisher) {
+        this.get(publisher.getId());
         return this.publisherRepo.save(publisher);
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         Publisher publisher = this.get(id);
         this.publisherRepo.delete(publisher);
         return true;
     }
 
     @Override
-    public Publisher get(int id) {
-        return this.publisherRepo.findById(id).orElseThrow();
+    public Publisher get(Long id) {
+        return this.publisherRepo.findById(id).orElseThrow(() -> new NotFoundException(Message.NOT_FOUND));
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.ferhat.librarymanagementrestapi.core.utils.ResultHelper;
 import org.ferhat.librarymanagementrestapi.dto.request.book.BookSaveRequest;
 import org.ferhat.librarymanagementrestapi.dto.request.book.BookUpdateRequest;
 import org.ferhat.librarymanagementrestapi.dto.response.CursorResponse;
+import org.ferhat.librarymanagementrestapi.dto.response.author.AuthorResponse;
 import org.ferhat.librarymanagementrestapi.dto.response.book.BookResponse;
 import org.ferhat.librarymanagementrestapi.entity.Author;
 import org.ferhat.librarymanagementrestapi.entity.Book;
@@ -42,25 +43,31 @@ public class BookController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<BookResponse> save(@Valid @RequestBody BookSaveRequest bookSaveRequest) {
-        Book saveBook = this.modelMapperService.forRequest().map(bookSaveRequest, Book.class);
 
+        Book saveBook = this.modelMapperService.forRequest().map(bookSaveRequest, Book.class);
         Author author = this.authorService.get(bookSaveRequest.getAuthorId());
         saveBook.setAuthor(author);
-
         Publisher publisher = this.publisherService.get(bookSaveRequest.getPublisherId());
         saveBook.setPublisher(publisher);
-
         this.bookService.save(saveBook);
+
         return ResultHelper.created(this.modelMapperService.forResponse().map(saveBook, BookResponse.class));
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<BookResponse> get(@PathVariable("id") int id) {
+    public ResultData<BookResponse> get(@PathVariable("id") Long id) {
         Book book = this.bookService.get(id);
-        BookResponse bookResponse = this.modelMapperService.forResponse().map(book, BookResponse.class);
-        return ResultHelper.success(bookResponse);
+        return ResultHelper.success(this.modelMapperService.forResponse().map(book, BookResponse.class));
     }
+
+    @GetMapping("/{id}/author")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultData<AuthorResponse> getAuthor(@PathVariable("id") Long id) {
+        Book book = this.bookService.get(id);
+        return ResultHelper.success(this.modelMapperService.forResponse().map(book.getAuthor(), AuthorResponse.class));
+    }
+
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
@@ -85,7 +92,7 @@ public class BookController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.bookService.delete(id);
         return ResultHelper.ok();
     }

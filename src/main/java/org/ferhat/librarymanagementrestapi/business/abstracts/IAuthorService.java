@@ -9,9 +9,9 @@ public interface IAuthorService {
 
     Author update(Author author);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 
-    Author get(int id);
+    Author get(Long id);
 
     Page<Author> cursor(int page, int pageSize);
 }

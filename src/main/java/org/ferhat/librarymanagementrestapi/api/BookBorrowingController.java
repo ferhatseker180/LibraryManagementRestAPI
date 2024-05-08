@@ -33,17 +33,19 @@ public class BookBorrowingController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<BookBorrowingResponse> save(@Valid @RequestBody BookBorrowingSaveRequest bookBorrowingSaveRequest) {
+
         BookBorrowing saveBookBorrowing = this.modelMapperService.forRequest().map(bookBorrowingSaveRequest, BookBorrowing.class);
+        Book book = this.bookService.get(bookBorrowingSaveRequest.getBookId());
+        saveBookBorrowing.setBook(book);
         this.bookBorrowingService.save(saveBookBorrowing);
         return ResultHelper.created(this.modelMapperService.forResponse().map(saveBookBorrowing, BookBorrowingResponse.class));
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<BookBorrowingResponse> get(@PathVariable("id") int id) {
+    public ResultData<BookBorrowingResponse> get(@PathVariable("id") Long id) {
         BookBorrowing bookBorrowing = this.bookBorrowingService.get(id);
-        BookBorrowingResponse bookBorrowingResponse = this.modelMapperService.forResponse().map(bookBorrowing, BookBorrowingResponse.class);
-        return ResultHelper.success(bookBorrowingResponse);
+        return ResultHelper.success(this.modelMapperService.forResponse().map(bookBorrowing, BookBorrowingResponse.class));
     }
 
     @GetMapping()
@@ -68,7 +70,7 @@ public class BookBorrowingController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.bookBorrowingService.delete(id);
         return ResultHelper.ok();
     }

@@ -9,9 +9,9 @@ public interface IBookBorrowingService {
 
     BookBorrowing update(BookBorrowing bookBorrowing);
 
-    boolean delete(int id);
+    boolean delete(Long id);
 
-    BookBorrowing get(int id);
+    BookBorrowing get(Long id);
 
     Page<BookBorrowing> cursor(int page, int pageSize);
 }

@@ -10,9 +10,9 @@ public interface ICategoryService {
 
     Category update(Category category);
 
-    String delete(int id);
+    String delete(Long id);
 
-    Category get(int id);
+    Category get(Long id);
 
     Page<Category> cursor(int page, int pageSize);
 }

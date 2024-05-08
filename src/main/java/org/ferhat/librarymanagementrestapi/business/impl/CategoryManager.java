@@ -1,6 +1,7 @@
 package org.ferhat.librarymanagementrestapi.business.impl;
 
 import org.ferhat.librarymanagementrestapi.business.abstracts.ICategoryService;
+import org.ferhat.librarymanagementrestapi.dao.BookRepo;
 import org.ferhat.librarymanagementrestapi.dao.CategoryRepo;
 import org.ferhat.librarymanagementrestapi.entity.Category;
 import org.springframework.data.domain.Page;
@@ -13,11 +14,12 @@ import java.util.Optional;
 @Service
 public class CategoryManager implements ICategoryService {
     private final CategoryRepo categoryRepo;
+    private final BookRepo bookRepo;
 
-    public CategoryManager(CategoryRepo categoryRepo) {
+    public CategoryManager(CategoryRepo categoryRepo, BookRepo bookRepo) {
         this.categoryRepo = categoryRepo;
+        this.bookRepo = bookRepo;
     }
-
 
     @Override
     public Category save(Category category) {
@@ -26,11 +28,12 @@ public class CategoryManager implements ICategoryService {
 
     @Override
     public Category update(Category category) {
+        this.get(category.getId());
         return this.categoryRepo.save(category);
     }
 
     @Override
-    public String delete(int id) {
+    public String delete(Long id) {
         Optional<Category> optionalCategory = categoryRepo.findById(id);
         if (optionalCategory.isPresent()) {
             Category category = optionalCategory.get();
@@ -45,7 +48,7 @@ public class CategoryManager implements ICategoryService {
     }
 
     @Override
-    public Category get(int id) {
+    public Category get(Long id) {
         return this.categoryRepo.findById(id).orElseThrow();
     }
 

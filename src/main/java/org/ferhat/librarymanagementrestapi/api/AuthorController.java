@@ -36,7 +36,7 @@ public class AuthorController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<AuthorResponse> get(@PathVariable("id") int id) {
+    public ResultData<AuthorResponse> get(@PathVariable("id") Long id) {
         Author author = this.authorService.get(id);
         AuthorResponse authorResponse = this.modelMapperService.forResponse().map(author, AuthorResponse.class);
         return ResultHelper.success(authorResponse);
@@ -65,7 +65,7 @@ public class AuthorController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.authorService.delete(id);
         return ResultHelper.ok();
     }

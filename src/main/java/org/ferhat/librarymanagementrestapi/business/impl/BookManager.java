@@ -1,6 +1,8 @@
 package org.ferhat.librarymanagementrestapi.business.impl;
 
 import org.ferhat.librarymanagementrestapi.business.abstracts.IBookService;
+import org.ferhat.librarymanagementrestapi.core.exception.NotFoundException;
+import org.ferhat.librarymanagementrestapi.core.utils.Message;
 import org.ferhat.librarymanagementrestapi.dao.BookRepo;
 import org.ferhat.librarymanagementrestapi.entity.Book;
 import org.springframework.data.domain.Page;
@@ -23,19 +25,20 @@ public class BookManager implements IBookService {
 
     @Override
     public Book update(Book book) {
+        this.get(book.getId());
         return this.bookRepo.save(book);
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(Long id) {
         Book book = this.get(id);
         this.bookRepo.delete(book);
         return true;
     }
 
     @Override
-    public Book get(int id) {
-        return this.bookRepo.findById(id).orElseThrow(() -> new RuntimeException("Book not found with id: " + id));
+    public Book get(Long id) {
+        return this.bookRepo.findById(id).orElseThrow(() -> new NotFoundException(Message.NOT_FOUND));
     }
 
     @Override

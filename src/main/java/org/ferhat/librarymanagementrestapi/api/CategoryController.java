@@ -29,6 +29,7 @@ public class CategoryController {
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public ResultData<CategoryResponse> save(@Valid @RequestBody CategorySaveRequest categorySaveRequest) {
+
         Category saveCategory = this.modelMapperService.forRequest().map(categorySaveRequest, Category.class);
         this.categoryService.save(saveCategory);
         return ResultHelper.created(this.modelMapperService.forResponse().map(saveCategory, CategoryResponse.class));
@@ -36,10 +37,9 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResultData<CategoryResponse> get(@PathVariable("id") int id) {
+    public ResultData<CategoryResponse> get(@PathVariable("id") Long id) {
         Category category = this.categoryService.get(id);
-        CategoryResponse categoryResponse = this.modelMapperService.forResponse().map(category, CategoryResponse.class);
-        return ResultHelper.success(categoryResponse);
+        return ResultHelper.success(this.modelMapperService.forResponse().map(category, CategoryResponse.class));
     }
 
     @GetMapping()
@@ -65,7 +65,7 @@ public class CategoryController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Result delete(@PathVariable("id") int id) {
+    public Result delete(@PathVariable("id") Long id) {
         this.categoryService.delete(id);
         return ResultHelper.ok();
     }
