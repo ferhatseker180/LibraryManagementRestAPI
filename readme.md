@@ -29,3 +29,4 @@
 | /v1/publishers      | PUT         |
 | /v1/publishers/{id} | DELETE      |
 | /v1/publishers      | GET         |
+
